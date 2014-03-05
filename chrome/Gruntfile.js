@@ -145,6 +145,18 @@ module.exports = function (grunt) {
                 }
             }
         },
+        replace_json_glob: {
+            build: {
+                files: [
+                    {
+                        src: '<%= yeoman.app %>/premanifest.json',
+                        dest: '<%= yeoman.app %>/manifest.json',
+                        subdir: '<%= yeoman.app %>',
+                        props: ['content_scripts.0.js']
+                    }
+                ]
+            }
+        },
         useminPrepare: {
             options: {
                 dest: '<%= yeoman.dist %>'
