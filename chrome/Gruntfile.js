@@ -30,8 +30,8 @@ module.exports = function (grunt) {
                 spawn: false
             },
             coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
+                files: ['<%= yeoman.app %>/coffee/{,*/}*.{coffee,litcoffee}'],
+                tasks: ['coffee:dist', 'replace_json_glob']
             },
             coffeeTest: {
                 files: ['test/spec/{,*/}*.coffee'],
@@ -40,6 +40,14 @@ module.exports = function (grunt) {
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server']
+            },
+            dust: {
+                files: ['<%= yeoman.app %>/templates/{,*/}*.dust'],
+                tasks: ['dustjs']
+            },
+            manifest: {
+                files: ['<%= yeoman.app %>/premanifest.json'],
+                tasks: ['replace_json_glob']
             }
         },
         connect: {
@@ -94,9 +102,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
+                    cwd: '<%= yeoman.app %>/coffee',
+                    src: '{,*/}*.{coffee,litcoffee}',
+                    dest: '<%= yeoman.app %>/scripts',
                     ext: '.js'
                 }]
             },
@@ -104,10 +112,17 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
+                    src: '{,*/}*.{coffee,litcoffee}',
                     dest: '.tmp/spec',
                     ext: '.js'
                 }]
+            }
+        },
+        dustjs: {
+            compile: {
+                files: {
+                    '<%= yeoman.app %>/scripts/templates.js': ['<%= yeoman.app %>/templates/**/*.dust']
+                }
             }
         },
         compass: {
@@ -130,17 +145,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // not used since Uglify task does concat,
-        // but still available if needed
-        /*concat: {
-            dist: {}
-        },*/
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/
         useminPrepare: {
             options: {
                 dest: '<%= yeoman.dist %>'
@@ -284,6 +288,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'dustjs',
+        'replace_json_glob',
         'chromeManifest:dist',
         'useminPrepare',
         'concurrent:dist',
