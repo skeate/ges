@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "GES",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Gaia Enhancement Suite",
+    "description": "The description of the application"
+  }
+}
