@@ -100,6 +100,8 @@ here is a bit simpler: Major.Minor
   (see above).
 * Minor is for bug fixes.
 
+We've also got a default constructor that loads data and adds itself to GES.
+
     class @Module
         constructor: ->
             self = @
