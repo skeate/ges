@@ -100,7 +100,6 @@ here is a bit simpler: Major.Minor
   (see above).
 * Minor is for bug fixes.
 
-
     class @Module
         constructor: ->
             self = @
