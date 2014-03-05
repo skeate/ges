@@ -1,0 +1,8 @@
+<div id="ges-box" title="Gaia Enhancement Suite {version}">
+    <div id="ges-tabs">
+        <ul>
+            <li><a href="#ges-tabs-modules">Modules</a></li>
+        </ul>
+        <div id="ges-tabs-modules"></div>
+    </div>
+</div>
