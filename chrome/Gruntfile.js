@@ -30,19 +30,20 @@ module.exports = function (grunt) {
                 spawn: false
             },
             coffee: {
-                files: ['<%= yeoman.app %>/coffee/{,*/}*.{coffee,litcoffee}'],
+                files: ['<%= yeoman.app %>/coffee/**/*.{coffee,litcoffee}'],
                 tasks: ['coffee:dist', 'replace_json_glob']
             },
             coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
+                files: ['test/spec/**/*.coffee'],
                 tasks: ['coffee:test']
             },
             compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+                files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
                 tasks: ['compass:server']
             },
             dust: {
-                files: ['<%= yeoman.app %>/templates/{,*/}*.dust'],
+                files: ['<%= yeoman.app %>/templates/**/*.dust',
+                        '<%= yeoman.app %>/modules/**/*.dust'],
                 tasks: ['dustjs']
             },
             manifest: {
@@ -86,8 +87,8 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                'test/spec/{,*/}*.js'
+                '<%= yeoman.app %>/scripts/**/*.js',
+                'test/spec/**/*.js'
             ]
         },
         mocha: {
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>/coffee',
-                    src: '{,*/}*.{coffee,litcoffee}',
+                    src: '**/*.{coffee,litcoffee}',
                     dest: '<%= yeoman.app %>/scripts',
                     ext: '.js'
                 }]
@@ -112,7 +113,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'test/spec',
-                    src: '{,*/}*.{coffee,litcoffee}',
+                    src: '**/*.{coffee,litcoffee}',
                     dest: '.tmp/spec',
                     ext: '.js'
                 }]
@@ -170,15 +171,15 @@ module.exports = function (grunt) {
             options: {
                 dirs: ['<%= yeoman.dist %>']
             },
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
+            html: ['<%= yeoman.dist %>/**/*.html'],
+            css: ['<%= yeoman.dist %>/styles/**/*.css']
         },
         imagemin: {
             dist: {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.{png,jpg,jpeg}',
+                    src: '**/*.{png,jpg,jpeg}',
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -188,7 +189,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
+                    src: '**/*.svg',
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -197,8 +198,8 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                        '.tmp/styles/**/*.css',
+                        '<%= yeoman.app %>/styles/**/*.css'
                     ]
                 }
             }
@@ -234,8 +235,8 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,png,txt}',
-                        'images/{,*/}*.{webp,gif}',
-                        '_locales/{,*/}*.json'
+                        'images/**/*.{webp,gif}',
+                        '_locales/**/*.json'
                     ]
                 }, {
                     expand: true,

@@ -33,8 +33,9 @@
                 "bower_components/jqueryui/ui/jquery-ui.js",
                 "scripts/templates.js",
                 "scripts/ges.js",
+                "scripts/module.js",
                 "scripts/util/*.js",
-                "scripts/modules/*.js"
+                "scripts/modules/**/*.js"
             ],
             "run_at": "document_end",
             "all_frames": false

@@ -1,13 +1,13 @@
 <div class="ges-module">
-    <h3>{name}</h3>
-    <span>{description}</span>
     <div class="controls">
         <label>
             Enabled
             <input type="checkbox" name="{name}" {?enabled}checked{/enabled}>
         </label>
-        <button {?options}disabled{/options}>Options</button>
+        <button {^options}disabled{/options}>Options</button>
     </div>
+    <h3>{name}</h3>
+    <span>{description}</span>
     <div class="options">
     {#options}
         {@select key=type}
@@ -30,7 +30,7 @@
                 <div class="option toggle">
                     <label>
                         {label}
-                        <input type="checkbox" {?value}checked{/value}>
+                        <input type="checkbox" {?enabled}checked{/enabled}>
                     </label>
                 </div>
             {/eq}

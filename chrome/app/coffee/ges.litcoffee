@@ -19,13 +19,14 @@ This is the same versioning that should be tagged in the repo.
 
 When we add a module, we first want to add it to the Modules tab in GES.
 
+        @modules: {}
         @addModule: (module) ->
+            @modules[module.name] = module
             dust.render 'module', module, (err, res) ->
                 $('#ges-tabs-modules').append res
 
 Next we check if it has its own tab, and add it if it does.
 
-            ###
             if module.tab?
                 dust.render module.tab, module.data, (err, res) ->
                     tabs = $('#ges-tabs')
@@ -33,9 +34,11 @@ Next we check if it has its own tab, and add it if it does.
                     tab += module.name
                     tab += '</a></li>'
                     tabs.find('.ui-tabs-nav').append tab
-                    tabs.append '<div>'+res+'</div>'
+                    tab = '<div id="ges-tabs-'+module.tab+'">'
+                    tab += (err or res)
+                    tab += '</div>'
+                    tabs.append tab
                     tabs.tabs 'refresh'
-            ###
 
 Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.
@@ -68,6 +71,7 @@ Initialization consists of setting up the GES window...
                         modal: true
                         resizable: false
                         width: '600px'
+                        dialogClass: 'ges-main'
 
     @GES.init()
 
@@ -92,59 +96,14 @@ match certain pages' URLs.
         @UserStoreBuy: /\/marketplace\/userstore\/\d+\/buy\//
         @Inventory: /\.com\/inventory/
 
-Next we declare a module class. All modules should derive from this. Versioning
-here is a bit simpler: Major.Minor
+Since we're generating the list of modules in this file, it seems fair to
+include the controller code for the module list here as well.
 
-* Major for significant changes (new features, change in how a feature works,
-  etc.). This also increments the Minor version number of the whole codebase
-  (see above).
-* Minor is for bug fixes.
+    $gtm = $('#ges-tabs-modules')
+    $gtm.on 'click', '.ges-module > .controls > button', (e)->
+        $(@).parent().siblings('.options').slideToggle()
 
-We've also got a default constructor that loads data and adds itself to GES.
-
-    class @Module
-        constructor: ->
-            self = @
-            GES.util.data.get @name, {}, (data) ->
-                @data = data
-                GES.addModule self
-        version: '1.0'
-        name: 'Uninitialized module'
-        description: 'Uninitialized module'
-        runOn: [Pages.All]
-        options: []
-        tab: null
-        run: ->
-            console.log 'attempting to run base module'
-
-Modules can have settings, and those settings can be displayed either on a tab
-of its own or, if there's only a few simple options, in the module list itself.
-The latter should derive from `ModuleOption`.
-
-    class @ModuleOption
-        constructor: (@type, @label, @initial, @check = /.*/, @action, @wait_text) ->
-            if @type != 'action' and !@initial?
-                throw 'Initial setting required for type '+@type
-
-            if @type == 'action'
-                if !@action? or typeof @action != 'function'
-                    throw 'Action function required if type is "action"'
-                if !@wait_text? or typeof @wait_text != 'string'
-                    throw 'Wait text string required if type is "action"'
-
-            if @type == 'text' or @type == 'textbox'
-                if typeof @initial != 'string'
-                    throw 'Initial setting must be string for type '+@type
-                if !@check instanceof RegExp
-                    throw 'Check must be a regular expression'
-            
-            if @type == 'toggle'
-                if typeof @initial != 'boolean'
-                    throw 'Initial setting must be boolean for type '+@type
-                     
-
-If you prefer to make a tab:
-
-1. Make a template (we use dust.js)
-2. Set `Module.tab` to the name of your template
-3. Set `Module.tabData` to a function returning the object to pass in
+    $gtm.on 'change', '.ges-module > .controls > label > input', (e) ->
+        console.log @name
+        console.log @checked
+        GES.modules[@name].enable(@checked)

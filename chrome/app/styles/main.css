@@ -1,4 +1,4 @@
-ges-notif-div{
+.ges-notif-div{
     padding: 0 .7em;
 }
 
@@ -9,13 +9,18 @@ ges-notif-div{
 
 #ges-box{
     background: #fafafa;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     color: black;
     width: 600px;
     margin: auto;
     padding: 15px;
-    background: url('chrome-extension://abcnlhmdpnabffmmfkplfljmafjplmma/images/bg.jpg') center;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/bg.jpg') center;
     display: none;
+}
+
+.ges-main .ui-dialog-titlebar{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 #ges-box h1{
@@ -28,4 +33,49 @@ ges-notif-div{
     height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.ges-module{
+    background: #ddd;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.ges-module h3{
+    margin: 0;
+}
+.ges-module .controls{
+    float: right;
+}
+.ges-module .controls label{
+    display: block;
+}
+.ges-module .controls label input{
+    margin-left: 3px;
+    vertical-align: middle;
+}
+.ges-module .options{
+    padding: 10px;
+    display: none;
+    clear: both;
+}
+.ges-module .option{
+    height: 30px;
+    text-align: left;
+}
+.ges-module .option>input{
+    float: right;
+}
+.ges-module .option .action{
+    text-align: center;
+}
+.ges-module .option .textbox{
+    height: 130px;
+}
+.ges-module .option .textbox>textarea{
+    height: 100px;
+    width: 450px;
+    clear: both;
 }
