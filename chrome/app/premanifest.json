@@ -31,6 +31,7 @@
                 "bower_components/dustjs-linkedin/dist/dust-core.min.js",
                 "bower_components/dustjs-linkedin-helpers/dist/dust-helpers.min.js",
                 "bower_components/jqueryui/ui/jquery-ui.js",
+                "bower_components/js-md5/js/md5.min.js",
                 "scripts/templates.js",
                 "scripts/ges.js",
                 "scripts/module.js",

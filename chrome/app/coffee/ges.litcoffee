@@ -27,9 +27,14 @@ When we add a module, we first want to add it to the Modules tab in GES.
 Load order can be random, but I'd like the list to be consistent, so
 alphabetize.
 
-                $('#ges-tabs-modules .ges-module h3').each ->
+                $modNames = $ '#ges-tabs-modules .ges-module h3'
+                $modNames.each ->
                     if $(@).text() > module.name
                         $(@).parent().before res
+                # if it wasn't added (can happen if it belongs at end of list
+                # or list was empty)
+                if $('.ges-module').length == $modNames.length
+                    $('#ges-tabs-modules').append res
 
 Next we check if it has its own tab, and add it if it does.
 
@@ -46,6 +51,7 @@ Next we check if it has its own tab, and add it if it does.
                         tab += '</div>'
                         tabs.append tab
                         tabs.tabs 'refresh'
+                    module.onTabLoad()
 
 Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.

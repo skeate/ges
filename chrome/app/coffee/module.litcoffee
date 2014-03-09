@@ -17,7 +17,15 @@ We've also got a default constructor that loads data and adds itself to GES.
         name: 'Uninitialized module'
         description: 'Uninitialized module'
         runOn: [Pages.All]
+
+Module options show up in the main module list. There are a few types
+available; see below for details.
+
         options: []
+
+Getter function. Be sure to use ?, since if the option isn't set (for whatever
+reason), this will return `null`.
+
         option: (name) ->
             opt = @options.filter (o) -> o.name == name
             if opt.length > 0 then opt[0] else null
@@ -28,19 +36,22 @@ If you prefer to make a tab:
 2. Set `Module.tab` to the name of your template
 3. Set `Module.loadTabData` to a function, taking a callback, that loads data
    and passes it into the callback.
+4. Set `Module.onTabLoad` to a function that runs after the tab is loaded.
+   Use it for controller code.
+
+Tabs should be used for more complex settings.
 
         tab: null
         loadTabData: (cb) -> cb({})
-        enable: ->
-            @enabled = true
-            GES.util.data.set @name, true
-            @run()
+        onTabLoad: ->
+        enable: (d) ->
+            @enabled = d
+            GES.util.data.set @name, d
+            if d then @run()
         run: ->
             console.log 'attempting to run base module'
 
-Modules can have settings, and those settings can be displayed either on a tab
-of its own or, if there's only a few simple options, in the module list itself.
-The latter should derive from `ModuleOption`.
+Elements in `Module.options` should derive from `ModuleOption`.
 
 `ModuleOption` takes a name and an object containing two required properties:
 `type` and `label`. `type` is one of `['toggle', 'text', 'action']`. If `toggle`
