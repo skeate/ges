@@ -21,8 +21,16 @@ We've also got a default constructor that loads data and adds itself to GES.
         option: (name) ->
             opt = @options.filter (o) -> o.name == name
             if opt.length > 0 then opt[0] else null
+
+If you prefer to make a tab:
+
+1. Make a template (we use dust.js)
+2. Set `Module.tab` to the name of your template
+3. Set `Module.loadTabData` to a function, taking a callback, that loads data
+   and passes it into the callback.
+
         tab: null
-        tabData: -> {}
+        loadTabData: (cb) -> cb({})
         enable: ->
             @enabled = true
             GES.util.data.set @name, true
@@ -97,9 +105,3 @@ completes.
                         throw 'Wait Text must be string'
                     @waitText = options.waitText
                     @action = options.action
-
-If you prefer to make a tab:
-
-1. Make a template (we use dust.js)
-2. Set `Module.tab` to the name of your template
-3. Set `Module.tabData` to a function returning the object to pass in

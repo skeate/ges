@@ -1,0 +1,17 @@
+<div>
+	<div>
+		<p>Add a new account:</p>
+		<p>Username: <input type="text" /></p>
+		<p>Password: <input type="password" /></p>
+		<button class="add">Add</button>
+	</div>
+	<table>
+        {#accounts}
+			<tr>
+				<td>{name}</td>
+				<td><input type="password" value="{password}" /></td>
+				<td><button>Delete</button></td>
+			</tr>
+        {/accounts}
+	</table>
+</div>

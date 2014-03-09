@@ -34,17 +34,18 @@ alphabetize.
 Next we check if it has its own tab, and add it if it does.
 
             if module.tab?
-                dust.render module.tab, module.data, (err, res) ->
-                    tabs = $('#ges-tabs')
-                    tab = '<li><a href="#ges-tabs-'+module.tab+'">'
-                    tab += module.name
-                    tab += '</a></li>'
-                    tabs.find('.ui-tabs-nav').append tab
-                    tab = '<div id="ges-tabs-'+module.tab+'">'
-                    tab += (err or res)
-                    tab += '</div>'
-                    tabs.append tab
-                    tabs.tabs 'refresh'
+                module.loadTabData (tabData) ->
+                    dust.render module.tab, tabData, (err, res) ->
+                        tabs = $('#ges-tabs')
+                        tab = '<li><a href="#ges-tabs-'+module.tab+'">'
+                        tab += module.name
+                        tab += '</a></li>'
+                        tabs.find('.ui-tabs-nav').append tab
+                        tab = '<div id="ges-tabs-'+module.tab+'">'
+                        tab += (err or res)
+                        tab += '</div>'
+                        tabs.append tab
+                        tabs.tabs 'refresh'
 
 Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.
