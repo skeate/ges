@@ -42,8 +42,7 @@ module.exports = function (grunt) {
                 tasks: ['compass:server']
             },
             dust: {
-                files: ['<%= yeoman.app %>/templates/**/*.dust',
-                        '<%= yeoman.app %>/modules/**/*.dust'],
+                files: ['<%= yeoman.app %>/**/*.dust'],
                 tasks: ['dustjs']
             },
             manifest: {
@@ -130,7 +129,7 @@ module.exports = function (grunt) {
         dustjs: {
             compile: {
                 files: {
-                    '<%= yeoman.app %>/scripts/templates.js': ['<%= yeoman.app %>/templates/**/*.dust']
+                    '<%= yeoman.app %>/scripts/templates.js': ['<%= yeoman.app %>/**/*.dust']
                 }
             }
         },
