@@ -31,7 +31,7 @@ module.exports = function (grunt) {
             },
             coffee: {
                 files: ['<%= yeoman.app %>/coffee/**/*.{coffee,litcoffee}'],
-                tasks: ['coffee:dist', 'replace_json_glob']
+                tasks: ['clean:js', 'coffee:dist', 'replace_json_glob']
             },
             coffeeTest: {
                 files: ['test/spec/**/*.coffee'],
@@ -69,6 +69,14 @@ module.exports = function (grunt) {
             }
         },
         clean: {
+            js: {
+                files: [{
+                    src: [
+                        '<%= yeoman.app %>/scripts/**/*.js',
+                        '!<%= yeoman.app %>/scripts/templates.js'
+                   ]
+               }]
+            },
             dist: {
                 files: [{
                     dot: true,
