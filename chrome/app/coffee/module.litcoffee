@@ -10,10 +10,9 @@ We've also got a default constructor that loads data and adds itself to GES.
 
     class @Module
         constructor: ->
-            self = @
-            GES.util.data.get @name, {}, (data) ->
-                @data = data
-                GES.addModule self
+            GES.util.data.get @name, false, (data) =>
+                @enabled = data
+                GES.addModule @
         version: '1.0'
         name: 'Uninitialized module'
         description: 'Uninitialized module'
@@ -24,6 +23,10 @@ We've also got a default constructor that loads data and adds itself to GES.
             if opt.length > 0 then opt[0] else null
         tab: null
         tabData: -> {}
+        enable: ->
+            @enabled = true
+            GES.util.data.set @name, true
+            @run()
         run: ->
             console.log 'attempting to run base module'
 
@@ -69,6 +72,15 @@ box. You can also pass a RegExp in `check` if you want a particular format.
                         throw 'Obscured must be a boolean.'
                     @obscured = options.obscured
                     @check = options.check
+                    GES.util.data.get @name, options.initial, (data) =>
+                        @value = data
+
+`textbox` produces a text area (perhaps this name should be changed). 
+
+                when 'textbox'
+                    if !options.initial? then options.initial = ''
+                    if typeof options.initial != 'string'
+                        throw 'Default setting for textbox must be a string'
                     GES.util.data.get @name, options.initial, (data) =>
                         @value = data
 

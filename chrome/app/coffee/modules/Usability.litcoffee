@@ -20,7 +20,7 @@ easier.
                 initial: true
         ]
         run: ->
-            if @option('shiftpms').enabled
+            if @option('shiftpms')?.enabled
                 lastSelected = null
                 # wut @ selector
                 checks = $('#pm_content table table table tr:gt(0) :checkbox')
@@ -34,9 +34,9 @@ easier.
                             checks.slice(start, end).attr 'checked', 'checked'
                         else
                             lastSelected = @
-            if @options('captchaidx').enabled
+            if @option('captchaidx')?.enabled
                 console.log 'usability tweak needs reworking'
-            if @options('stopDynamicPages').enabled
+            if @option('stopDynamicPages')?.enabled
                 $('.forum_detail_pagination a').click (e)->
                     e.stopImmediatePropagation()
 

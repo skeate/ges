@@ -23,7 +23,13 @@ When we add a module, we first want to add it to the Modules tab in GES.
         @addModule: (module) ->
             @modules[module.name] = module
             dust.render 'module', module, (err, res) ->
-                $('#ges-tabs-modules').append res
+
+Load order can be random, but I'd like the list to be consistent, so
+alphabetize.
+
+                $('#ges-tabs-modules .ges-module h3').each ->
+                    if $(@).text() > module.name
+                        $(@).parent().before res
 
 Next we check if it has its own tab, and add it if it does.
 
@@ -130,3 +136,9 @@ include the controller code for the module list here as well.
         opt_name = $(@).parents('.option').attr 'data-name'
         option = GES.modules[m].option(opt_name)
         GES.util.data.set option.name, $(@).prop 'checked'
+
+    $gtm.on 'change', '.ges-module > .options > .textbox > textarea', ->
+        m = $(@).parents('.ges-module').find('.controls input').attr('name')
+        opt_name = $(@).parents('.option').attr 'data-name'
+        option = GES.modules[m].option(opt_name)
+        GES.util.data.set option.name, $(@).val()
