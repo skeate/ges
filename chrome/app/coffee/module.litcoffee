@@ -51,8 +51,8 @@ a way around this.
                     if !options.initial? then options.initial = false
                     if typeof options.initial != 'boolean'
                         throw 'Default setting for toggle must be boolean'
-                    GES.util.data.get @name, options.initial, (data) ->
-                        @enabled = data[@name]
+                    GES.util.data.get @name, options.initial, (data) =>
+                        @enabled = data
 
 `text` produces a text box. If you also pass `obscured: true`, it's a password
 box. You can also pass a RegExp in `check` if you want a particular format.
@@ -69,8 +69,8 @@ box. You can also pass a RegExp in `check` if you want a particular format.
                         throw 'Obscured must be a boolean.'
                     @obscured = options.obscured
                     @check = options.check
-                    GES.util.data.get @name, options.initial, (data) ->
-                        @value = data[@name]
+                    GES.util.data.get @name, options.initial, (data) =>
+                        @value = data
 
 `action` will generate a button to execute `options.action`. The action is
 asynchronous, so once clicked, the button gets disabled and
