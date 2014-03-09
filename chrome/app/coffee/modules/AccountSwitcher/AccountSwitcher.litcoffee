@@ -21,11 +21,13 @@ username with a dropbox of choices.
                 delete @accounts[name]
                 GES.util.data.set 'accounts', @accounts
                 $btn.parent().parent().remove()
+            # Password edited
             $as.find('table tr input').on 'change', (e) =>
                 $pwd = $(e.target)
                 name = $pwd.parent().siblings(':first').text()
                 @accounts[name] = $pwd.val()
                 GES.util.data.set 'accounts', @accounts
+            # Account added
             $as.find('button.add').on 'click', =>
                 name = $as.find('div input:text').val()
                 pass = $as.find('div input:password').val()
@@ -34,11 +36,13 @@ username with a dropbox of choices.
                 list = []
                 for user, pass of @accounts
                     list.push user: user, pass: pass
-                dust.render @tab, accounts: list, (err, res) ->
+                # Easier to just rerender panel rather than add in table row
+                # manually. call @onTabLoad to re-register events.
+                dust.render @tab, accounts: list, (err, res) =>
                     $as.replaceWith res
+                    @onTabLoad()
         run: ->
             GES.util.data.get 'accounts', {}, (@accounts) =>
-                console.log 'attempting to run'
                 $hudname = $('.avatarName span')
                 signedIn = $hudname.text()
                 $hudname.replaceWith '<select>'
