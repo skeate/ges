@@ -100,10 +100,33 @@ Since we're generating the list of modules in this file, it seems fair to
 include the controller code for the module list here as well.
 
     $gtm = $('#ges-tabs-modules')
-    $gtm.on 'click', '.ges-module > .controls > button', (e)->
+    $gtm.on 'click', '.ges-module > .controls > button', ->
         $(@).parent().siblings('.options').slideToggle()
 
-    $gtm.on 'change', '.ges-module > .controls > label > input', (e) ->
-        console.log @name
-        console.log @checked
+    $gtm.on 'change', '.ges-module > .controls > label > input', ->
         GES.modules[@name].enable(@checked)
+
+    $gtm.on 'click', '.ges-module > .options > .action > button', ->
+        m = $(@).parents('.ges-module').find('.controls input').attr('name')
+        opt_name = $(@).parents('.option').attr 'data-name'
+        option = GES.modules[m].option(opt_name)
+        $(@).prop 'disabled', true
+        option.action ->
+            $(@).prop 'disabled', false
+            $(@).text option.label
+
+    $gtm.on 'change', '.ges-module > .options > .text > input', ->
+        m = $(@).parents('.ges-module').find('.controls input').attr('name')
+        opt_name = $(@).parents('.option').attr 'data-name'
+        option = GES.modules[m].option(opt_name)
+        if option.check.test $(@).val()
+            GES.util.data.set option.name, $(@).val()
+        else
+            GES.util.notify 'Invalid input.'
+            $(@).focus()
+
+    $gtm.on 'change', '.ges-module > .options > .toggle input', ->
+        m = $(@).parents('.ges-module').find('.controls input').attr('name')
+        opt_name = $(@).parents('.option').attr 'data-name'
+        option = GES.modules[m].option(opt_name)
+        GES.util.data.set option.name, $(@).prop 'checked'

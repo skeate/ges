@@ -20,7 +20,8 @@ We've also got a default constructor that loads data and adds itself to GES.
         runOn: [Pages.All]
         options: []
         option: (name) ->
-            @options.filter (o) -> o.name == name
+            opt = @options.filter (o) -> o.name == name
+            if opt.length > 0 then opt[0] else null
         tab: null
         tabData: -> {}
         run: ->
@@ -39,7 +40,7 @@ Also, I don't much like this but right now the names have to be globally unique
 a way around this.
 
     class @ModuleOption
-        constructor: (name, options) ->
+        constructor: (@name, options) ->
             @type = options.type
             @label = options.label
             switch @type
@@ -50,8 +51,8 @@ a way around this.
                     if !options.initial? then options.initial = false
                     if typeof options.initial != 'boolean'
                         throw 'Default setting for toggle must be boolean'
-                    GES.util.data.get name, options.initial, (data) ->
-                        @enabled = data[name]
+                    GES.util.data.get @name, options.initial, (data) ->
+                        @enabled = data[@name]
 
 `text` produces a text box. If you also pass `obscured: true`, it's a password
 box. You can also pass a RegExp in `check` if you want a particular format.
@@ -68,8 +69,8 @@ box. You can also pass a RegExp in `check` if you want a particular format.
                         throw 'Obscured must be a boolean.'
                     @obscured = options.obscured
                     @check = options.check
-                    GES.util.data.get name, options.initial, (data) ->
-                        @value = data[name]
+                    GES.util.data.get @name, options.initial, (data) ->
+                        @value = data[@name]
 
 `action` will generate a button to execute `options.action`. The action is
 asynchronous, so once clicked, the button gets disabled and

@@ -12,12 +12,12 @@
     {#options}
         {@select key=type}
             {@eq value="action"}
-                <div class="option action">
+                <div class="option action" data-name="{name}">
                     <button>{label}</button>
                 </div>
             {/eq}
             {@eq value="text"}
-                <div class="option text">
+                <div class="option text" data-name="{name}">
                     {label}
                     {?obscured}
                         <input type="password" value="{value}">
@@ -27,7 +27,7 @@
                 </div>
             {/eq}
             {@eq value="toggle"}
-                <div class="option toggle">
+                <div class="option toggle" data-name="{name}">
                     <label>
                         {label}
                         <input type="checkbox" {?enabled}checked{/enabled}>
@@ -35,7 +35,7 @@
                 </div>
             {/eq}
             {@eq value="textbox"}
-                <div class="option textbox">
+                <div class="option textbox" data-name="{name}">
                     {label}
                     <textarea>{value}</textarea>
                 </div>
