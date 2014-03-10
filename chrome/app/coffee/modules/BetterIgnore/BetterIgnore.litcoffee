@@ -46,7 +46,13 @@ First, remove the half-ignored from the forum listing.
                         $ @
                           .parents 'tr'
                           .remove()
-                # redo the row striping
+
+Also remove the "Topics Blocked" addition
+
+                $('.forum-list td.notice').parent().remove()
+
+Since we've (potentially) removed some rows, we ought to redo the row striping.
+
                 $(".forum-list tbody tr").removeClass()
                 $(".forum-list tbody tr:even").addClass "rowon"
                 $(".forum-list tbody tr:odd").addClass "rowoff"
