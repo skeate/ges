@@ -24,12 +24,12 @@ library to do this, even.
 
 Also set up some events: posting from the main post form
 
-    $('#compose_entry').submit ->
-        @GES.util.events.fire 'post',
+    $('body').on 'submit', '#compose_entry', ->
+        GES.util.events.fire 'post',
             text: $('#message')
 
 and posting from Quick Reply
 
-    $('#qr_submit').on 'click', ->
-        @GES.util.events.fire 'post',
+    $('body').on 'click', '#qr_submit', ->
+        GES.util.events.fire 'post',
             text: $('#qr_text')
