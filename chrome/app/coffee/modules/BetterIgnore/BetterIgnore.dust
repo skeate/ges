@@ -1,0 +1,17 @@
+<div id="ges-better-ignore">
+    <div>
+        <p>
+            Add User to Half-Ignore:
+            <input type="text"></input>
+            <button class="add">Add</button>
+        </p>
+    </div>
+    <div>
+        {#ignored}
+            <div>
+                <span>{.}</span>
+                <a href="#">X</a>
+            </div>
+        {/ignored}
+    </div>
+</div>

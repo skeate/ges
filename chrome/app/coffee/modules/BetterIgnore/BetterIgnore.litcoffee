@@ -23,6 +23,19 @@ bottom of the forum.
                 cb ignored: @ignored
         onTabLoad: ->
             $bi = $('#ges-better-ignore')
+            $bi.find('a').on 'click', (e) =>
+                $e = $ e.target
+                user = $e.parent().children('span').text()
+                @ignored.splice @ignored.indexOf(user), 1
+                GES.util.data.set 'ignored', @ignored
+                $e.parent().remove()
+            $bi.find('button').on 'click', (e) =>
+                user = e.target.parentElement.children[0].value
+                @ignored.push user
+                GES.util.data.set 'ignored', @ignored
+                dust.render @tab, ignored: @ignored, (err, res) =>
+                    $bi.replaceWith res
+                    @onTabLoad()
         run: ->
             GES.util.data.get 'ignored', [], (@ignored) =>
 
