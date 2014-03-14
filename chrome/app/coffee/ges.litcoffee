@@ -56,8 +56,11 @@ Next we check if it has its own tab, and add it if it does.
 Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.
 
-            if module.enabled and 
-               module.pages.reduce((prev, cur)-> prev or cur.test document.URL)
+            runOnPage = ->
+                module.pages.reduce (p,c) ->
+                    p or c.test document.URL
+                , false
+            if module.enabled and runOnPage()
                 module.run()
 
 Initialization consists of setting up the GES window...
