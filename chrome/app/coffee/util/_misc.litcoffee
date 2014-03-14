@@ -4,7 +4,7 @@ A smattering of small utility functions.
 
 Quick function to supply a closure around a callback, so extra data may be passed.
 
-        @cb: (callee, obj) -> (data) -> callee data, obj
+        @cb: (obj, callee) -> (data) -> callee data, obj
 
 "Quickpost" standardizes the post mechanism, including error passing to the
 notification utility.
@@ -15,8 +15,7 @@ notification utility.
                 action_submit: 'submit'
                 nonce: nonce,
                 (data) ->
-                    res = JSON.parse data, @args
-                    if res.status
-                        window.location = res.url
+                    if data.status
+                        window.location = data.url
                     else
-                        GES.util.notify res.message, 'error'
+                        GES.util.notify data.message, 'error'
