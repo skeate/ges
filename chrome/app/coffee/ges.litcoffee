@@ -57,7 +57,7 @@ Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.
 
             if module.enabled and 
-               module.runOn.reduce((prev, cur)-> prev or cur.test document.URL)
+               module.pages.reduce((prev, cur)-> prev or cur.test document.URL)
                 module.run()
 
 Initialization consists of setting up the GES window...

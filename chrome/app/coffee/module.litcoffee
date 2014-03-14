@@ -16,7 +16,7 @@ We've also got a default constructor that loads data and adds itself to GES.
         version: '1.0'
         name: 'Uninitialized module'
         description: 'Uninitialized module'
-        runOn: [Pages.All]
+        pages: [Pages.All]
 
 Module options show up in the main module list. There are a few types
 available; see below for details.
