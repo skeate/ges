@@ -1,0 +1,33 @@
+.qq-box{
+    position: absolute;
+    left: 0;
+    width: 321px;
+    height: 211px;
+    padding: 10px;
+    background: #CDD9DD url(http://s.cdn.gaiaonline.com/images/forum/quick_reply_bg.png) no-repeat;;
+    border: 1px solid #98aeb7;
+    z-index: 192;
+}
+
+.qq-close{
+    float: right;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    background: url(http://s.cdn.gaiaonline.com/images/forum/quick_reply_closeButton.png) no-repeat;
+}
+
+.qq-box h2{
+    float: left;
+    margin-top: 0;
+}
+
+.qq-text{
+    width: 320px;
+    height: 150px;
+}
+
+.qq-submit{
+    float: right;
+    margin-top: 7px;
+}
