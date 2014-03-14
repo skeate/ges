@@ -41,6 +41,10 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
                 tasks: ['compass:server']
             },
+            css: {
+                files: ['<%= yeoman.app %>/coffee/**/*.css'],
+                tasks: ['copy:module_css', 'replace_json_glob']
+            },
             dust: {
                 files: ['<%= yeoman.app %>/**/*.dust'],
                 tasks: ['dustjs']
@@ -160,7 +164,7 @@ module.exports = function (grunt) {
                         src: '<%= yeoman.app %>/premanifest.json',
                         dest: '<%= yeoman.app %>/manifest.json',
                         subdir: '<%= yeoman.app %>',
-                        props: ['content_scripts.0.js']
+                        props: ['content_scripts.0.css','content_scripts.0.js']
                     }
                 ]
             }
@@ -234,6 +238,12 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
+            module_css: {
+                files: [{
+                    src: '<%= yeoman.app %>/coffee/**/*.css',
+                    dest: '<%= yeoman.app %>/styles/'
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,

@@ -24,7 +24,7 @@
                 "http://*.gaiaonline.com/*"
             ],
             "css": [
-                "styles/main.css"
+                "styles/**/*.css"
             ],
             "js": [
                 "bower_components/jquery/dist/jquery.js",
