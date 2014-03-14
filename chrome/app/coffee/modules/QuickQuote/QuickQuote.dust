@@ -1,0 +1,10 @@
+<h2>Quick Quote</h2>
+<span class="qq-close-span">
+    <span class="qq-quoting">
+        (Quoting {quoting})
+    </span>
+</span>
+<textarea class="qq-text" tabindex="4"></textarea>
+<a href="#" class="qq-submit cta-button-sm" tabindex="5">
+    <span>Submit</span>
+</a>
