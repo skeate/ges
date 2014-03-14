@@ -4,7 +4,7 @@ QuickQuote quotes quickly.
         version: '1.0'
         name: 'QuickQuote'
         description: 'Enables a Quick Reply-like drop box for quoting.'
-        pages: Pages.Thread
+        pages: [ Pages.Thread ]
         run: ->
             postID = document.URL.match /\/t\.(\d+)(_.*?)?\//
             if postID?
