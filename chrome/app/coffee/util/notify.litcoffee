@@ -1,15 +1,7 @@
 This supplies some basic notifications. First, we need to set up a container
 for them.
 
-    $('body').append '<div id="ges_notifications"></div>'
-    $('#ges_notifications').css
-        position: 'fixed'
-        bottom: '0'
-        right: '0'
-        width: '320px'
-        height: '0'
-        padding: '0'
-        margin: '0'
+    $('body').append '<div id="ges-notifications"></div>'
 
 Then we set up a GES.util to provide access. There's a queue, so multiple
 notifications can be displayed at the same time.
@@ -17,21 +9,14 @@ notifications can be displayed at the same time.
     class @GES.util.notify
         constructor: (msg, type = 'warning') ->
             if type == 'warning'
-                @enqueue $('div').writeAlert msg
+                notify.enqueue $('<div>').writeAlert msg
             else
-                @enqueue $('div').writeError msg
+                notify.enqueue $('<div>').writeError msg
         @queue: []
+        @timer: 5000
         @enqueue: (div) ->
             $div = $ div
-            $notif = $ '#ges_notifications'
-            $div.css
-                width: '300px'
-                marginBottom: '10px'
-                display: 'none'
-            $('p',div).css
-                paddingTop: '1em'
-                paddingBottom: '1em'
-                marginBottom: '0'
+            $notif = $ '#ges-notifications'
             @queue.push div
             $notif.append div
             $div.fadeIn 'fast'
@@ -39,7 +24,7 @@ notifications can be displayed at the same time.
             setTimeout @dequeue, @timer, @
         @dequeue: (ctx) ->
             $(ctx.queue.shift(),).fadeOut ->
-                $notif = $ '#ges_notifications'
+                $notif = $ '#ges-notifications'
                 $notif.height $notif.height() - $(@).height() - 10
                 $(@).remove()
 
