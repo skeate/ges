@@ -107,3 +107,9 @@
     width: 450px;
     clear: both;
 }
+
+#ges-tabs-friends .list span{
+    float: left;
+    width: 33%;
+    margin-right: .3%;
+}

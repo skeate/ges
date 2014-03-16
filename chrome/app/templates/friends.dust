@@ -1,0 +1,6 @@
+<button>Update friend list</button>
+<div class="list">
+    {#friends}
+        <span>{.}</span>
+    {/friends}
+</div>
