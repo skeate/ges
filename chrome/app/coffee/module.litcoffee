@@ -47,7 +47,7 @@ Tabs should be used for more complex settings.
         enable: (d) ->
             @enabled = d
             GES.util.data.set @name, d
-            if d then @run()
+            if d and GES.runOnPage(@pages) then @run()
         run: ->
             console.log 'attempting to run base module'
 

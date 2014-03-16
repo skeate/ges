@@ -17,6 +17,14 @@ This is the same versioning that should be tagged in the repo.
     class @GES # @ so it's global
         @version: '4.0.0a'
 
+GES.runOnPage takes a list of pages (defined below), and checks if a module
+should run on the current page.
+
+        @runOnPage: (pages) ->
+            pages.reduce (p,c) ->
+                p or c.test document.URL
+            , false
+
 When we add a module, we first want to add it to the Modules tab in GES.
 
         @modules: {}
@@ -56,11 +64,7 @@ Next we check if it has its own tab, and add it if it does.
 Finally, we check if (a) the module is enabled, and (b) the current page is one
 the module should run on. If so, run it.
 
-            runOnPage = ->
-                module.pages.reduce (p,c) ->
-                    p or c.test document.URL
-                , false
-            if module.enabled and runOnPage()
+            if module.enabled and @runOnPage module.pages
                 module.run()
 
 Initialization consists of setting up the GES window...
@@ -117,6 +121,7 @@ include the controller code for the module list here as well.
 
     $gtm.on 'change', '.ges-module > .controls > label > input', ->
         GES.modules[@name].enable(@checked)
+        $(@).parents('.ges-module').toggleClass('enabled',@checked)
 
     $gtm.on 'click', '.ges-module > .options > .action > button', ->
         m = $(@).parents('.ges-module').find('.controls input').attr('name')
