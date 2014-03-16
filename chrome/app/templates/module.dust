@@ -1,4 +1,4 @@
-<div class="ges-module">
+<div class="ges-module{?enabled} enabled{/enabled}">
     <div class="controls">
         <label>
             Enabled

@@ -56,12 +56,17 @@
 }
 
 .ges-module{
-    background: #ddd;
+    border: 1px solid #681818;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
+    background: #d88888;
+}
+.ges-module.enabled{
+    border-color: #186818;
+    background: #88d888;
 }
 .ges-module h3{
     margin: 0;
@@ -75,6 +80,9 @@
 .ges-module .controls label input{
     margin-left: 3px;
     vertical-align: middle;
+}
+.ges-module .controls button:disabled{
+    display: none;
 }
 .ges-module .options{
     padding: 10px;
