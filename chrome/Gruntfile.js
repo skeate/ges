@@ -137,6 +137,15 @@ module.exports = function (grunt) {
                 }
             }
         },
+        imageEmbed: {
+            dist: {
+                src: ['<%= yeoman.app %>/bower_components/jqueryui/themes/pepper-grinder/jquery-ui.min.css'],
+                dest: '<%= yeoman.app %>/styles/jquery-ui-embedded.css',
+                options: {
+                    deleteAfterEncoding: false
+                }
+            }
+        },
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
@@ -164,7 +173,11 @@ module.exports = function (grunt) {
                         src: '<%= yeoman.app %>/premanifest.json',
                         dest: '<%= yeoman.app %>/manifest.json',
                         subdir: '<%= yeoman.app %>',
-                        props: ['content_scripts.0.css','content_scripts.0.js']
+                        props: [
+                            'content_scripts.0.css',
+                            'content_scripts.0.js',
+                            'web_accessible_resources'
+                        ]
                     }
                 ]
             }
@@ -319,6 +332,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'dustjs',
+        'imageEmbed',
         'replace_json_glob',
         'chromeManifest:dist',
         'useminPrepare',

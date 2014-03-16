@@ -91,10 +91,6 @@ Initialization consists of setting up the GES window...
 
     @GES.init()
 
-Include Google CDN jQueryUI theme, to avoid rewriting URLs in embedded CSS.
-
-    $('head').append '<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/blitzer/jquery-ui.css">'
-
 Modules might only run on certain kinds of pages. By default, it runs on any
 Gaia page, but you can set `Module.runOn` to an array of the pages where it
 should be run. `Pages` contains some regular expressions that are intended to
