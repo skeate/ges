@@ -1,7 +1,11 @@
 {
   "appName": {
-    "message": "GES",
+    "message": "Gaia Enhancement Suite",
     "description": "The name of the application"
+  },
+  "shortName": {
+    "message": "GES",
+    "description": "The short name of the application"
   },
   "appDescription": {
     "message": "Gaia Enhancement Suite",
