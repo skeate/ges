@@ -15,7 +15,7 @@ all properties are static. Versioning is similar to semver
 This is the same versioning that should be tagged in the repo.
 
     class @GES # @ so it's global
-        @version: '4.0.0-beta'
+        @version: '4.0.1-beta'
 
 GES.runOnPage takes a list of pages (defined below), and checks if a module
 should run on the current page.
