@@ -57,8 +57,8 @@ class ThreadHighlighter extends Module
                 if $(@).text() == username
                     $(@).closest('tr').css 'background', scolor
         if friends
-            friendlist = GES.util.lists.friends()
-            threadCreatorList.each ->
-                if -1 != $.inArray $(@).text(), friendlist
-                    $(@).closest('tr').css 'background', fcolor
+            GES.util.friends.get (friendlist) ->
+                threadCreatorList.each ->
+                    if -1 != $.inArray $(@).text(), friendlist
+                        $(@).closest('tr').css 'background', fcolor
 new ThreadHighlighter()
