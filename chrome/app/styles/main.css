@@ -1,5 +1,115 @@
-/* Will be compiled down to a single stylesheet with your sass files */
+#ges-notifications > div{
+    padding: 0 .7em;
+    border-width: 5px;
+    width: 300px;
+    margin-bottom: 10px;
+    display: none;
+}
 
-html {
-    /* Defaults css for cssmin process */
+#ges-notifications p{
+    padding: 1em;
+    margin-bottom: 0;
+}
+
+.ges-notif-span{
+    float: left;
+    margin-right: .3em;
+}
+
+#ges-notifications{
+    z-index: 5000;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    padding: 0;
+    margin: 0;
+    height: 0;
+}
+
+#ges-box{
+    background: #fafafa;
+    border-radius: 0 0 10px 10px;
+    color: black;
+    width: 600px;
+    margin: auto;
+    padding: 15px;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/bg.jpg') center;
+    display: none;
+}
+
+.ges-main .ui-dialog-titlebar{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#ges-box h1{
+    font-family: "Century Gothic" sans-serif;
+    font-size: 20pt;
+    background: rgba(255,255,255,.5);
+}
+
+#ges-tabs > div{
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ges-module{
+    border: 1px solid #681818;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #d88888;
+}
+.ges-module.enabled{
+    border-color: #186818;
+    background: #88d888;
+}
+.ges-module h3{
+    margin: 0;
+}
+.ges-module .controls{
+    float: right;
+}
+.ges-module .controls label{
+    display: block;
+}
+.ges-module .controls label input{
+    margin-left: 3px;
+    vertical-align: middle;
+}
+.ges-module .controls button:disabled{
+    display: none;
+}
+.ges-module .options{
+    padding: 10px;
+    display: none;
+    clear: both;
+}
+.ges-module .option{
+    height: 30px;
+    text-align: left;
+}
+.ges-module .option>input{
+    float: right;
+}
+.ges-module .option .action{
+    text-align: center;
+}
+.ges-module .option .textbox{
+    height: 130px;
+}
+.ges-module .option .textbox>textarea{
+    height: 100px;
+    width: 450px;
+    clear: both;
+}
+
+#ges-tabs-friends .list span{
+    float: left;
+    width: 33%;
+    margin-right: .3%;
 }

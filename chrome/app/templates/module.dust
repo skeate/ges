@@ -1,0 +1,46 @@
+<div class="ges-module{?enabled} enabled{/enabled}">
+    <div class="controls">
+        <label>
+            Enabled
+            <input type="checkbox" name="{name}" {?enabled}checked{/enabled}>
+        </label>
+        <button {^options}disabled{/options}>Options</button>
+    </div>
+    <h3>{name}</h3>
+    <span>{description}</span>
+    <div class="options">
+    {#options}
+        {@select key=type}
+            {@eq value="action"}
+                <div class="option action" data-name="{name}">
+                    <button>{label}</button>
+                </div>
+            {/eq}
+            {@eq value="text"}
+                <div class="option text" data-name="{name}">
+                    {label}
+                    {?obscured}
+                        <input type="password" value="{value}">
+                    {:else}
+                        <input type="text" value="{value}">
+                    {/obscured}
+                </div>
+            {/eq}
+            {@eq value="toggle"}
+                <div class="option toggle" data-name="{name}">
+                    <label>
+                        {label}
+                        <input type="checkbox" {?enabled}checked{/enabled}>
+                    </label>
+                </div>
+            {/eq}
+            {@eq value="textbox"}
+                <div class="option textbox" data-name="{name}">
+                    {label}
+                    <textarea>{value}</textarea>
+                </div>
+            {/eq}
+        {/select}
+    {/options}
+    </div>
+</div>

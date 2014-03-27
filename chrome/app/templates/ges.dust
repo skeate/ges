@@ -1,0 +1,10 @@
+<div id="ges-box" title="Gaia Enhancement Suite {version}">
+    <div id="ges-tabs">
+        <ul>
+            <li><a href="#ges-tabs-modules">Modules</a></li>
+            <li><a href="#ges-tabs-friends">Friends</a></li>
+        </ul>
+        <div id="ges-tabs-modules"></div>
+        <div id="ges-tabs-friends"></div>
+    </div>
+</div>

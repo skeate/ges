@@ -30,16 +30,28 @@ module.exports = function (grunt) {
                 spawn: false
             },
             coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
+                files: ['<%= yeoman.app %>/coffee/**/*.{coffee,litcoffee}'],
+                tasks: ['clean:js', 'coffee:dist', 'replace_json_glob']
             },
             coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
+                files: ['test/spec/**/*.coffee'],
                 tasks: ['coffee:test']
             },
             compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+                files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
                 tasks: ['compass:server']
+            },
+            css: {
+                files: ['<%= yeoman.app %>/coffee/**/*.css'],
+                tasks: ['copy:module_css', 'replace_json_glob']
+            },
+            dust: {
+                files: ['<%= yeoman.app %>/**/*.dust'],
+                tasks: ['dustjs']
+            },
+            manifest: {
+                files: ['<%= yeoman.app %>/premanifest.json'],
+                tasks: ['replace_json_glob']
             }
         },
         connect: {
@@ -60,6 +72,14 @@ module.exports = function (grunt) {
             }
         },
         clean: {
+            js: {
+                files: [{
+                    src: [
+                        '<%= yeoman.app %>/scripts/**/*.js',
+                        '!<%= yeoman.app %>/scripts/templates.js'
+                   ]
+               }]
+            },
             dist: {
                 files: [{
                     dot: true,
@@ -78,8 +98,8 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                'test/spec/{,*/}*.js'
+                '<%= yeoman.app %>/scripts/**/*.js',
+                'test/spec/**/*.js'
             ]
         },
         mocha: {
@@ -94,9 +114,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
+                    cwd: '<%= yeoman.app %>/coffee',
+                    src: '**/*.{coffee,litcoffee}',
+                    dest: '<%= yeoman.app %>/scripts',
                     ext: '.js'
                 }]
             },
@@ -104,10 +124,26 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
+                    src: '**/*.{coffee,litcoffee}',
                     dest: '.tmp/spec',
                     ext: '.js'
                 }]
+            }
+        },
+        dustjs: {
+            compile: {
+                files: {
+                    '<%= yeoman.app %>/scripts/templates.js': ['<%= yeoman.app %>/**/*.dust']
+                }
+            }
+        },
+        imageEmbed: {
+            dist: {
+                src: ['<%= yeoman.app %>/bower_components/jqueryui/themes/pepper-grinder/jquery-ui.min.css'],
+                dest: '<%= yeoman.app %>/styles/jquery-ui-embedded.css',
+                options: {
+                    deleteAfterEncoding: false
+                }
             }
         },
         compass: {
@@ -130,17 +166,22 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // not used since Uglify task does concat,
-        // but still available if needed
-        /*concat: {
-            dist: {}
-        },*/
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/
+        replace_json_glob: {
+            build: {
+                files: [
+                    {
+                        src: '<%= yeoman.app %>/premanifest.json',
+                        dest: '<%= yeoman.app %>/manifest.json',
+                        subdir: '<%= yeoman.app %>',
+                        props: [
+                            'content_scripts.0.css',
+                            'content_scripts.0.js',
+                            'web_accessible_resources'
+                        ]
+                    }
+                ]
+            }
+        },
         useminPrepare: {
             options: {
                 dest: '<%= yeoman.dist %>'
@@ -154,15 +195,15 @@ module.exports = function (grunt) {
             options: {
                 dirs: ['<%= yeoman.dist %>']
             },
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
+            html: ['<%= yeoman.dist %>/**/*.html'],
+            css: ['<%= yeoman.dist %>/styles/**/*.css']
         },
         imagemin: {
             dist: {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.{png,jpg,jpeg}',
+                    src: '**/*.{png,jpg,jpeg}',
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -172,7 +213,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
+                    src: '**/*.svg',
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -181,8 +222,8 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                        '.tmp/styles/**/*.css',
+                        '<%= yeoman.app %>/styles/**/*.css'
                     ]
                 }
             }
@@ -210,6 +251,12 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
+            module_css: {
+                files: [{
+                    src: '<%= yeoman.app %>/coffee/**/*.css',
+                    dest: '<%= yeoman.app %>/styles/'
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -218,8 +265,8 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,png,txt}',
-                        'images/{,*/}*.{webp,gif}',
-                        '_locales/{,*/}*.json'
+                        'images/**/*.{webp,gif}',
+                        '_locales/**/*.json'
                     ]
                 }, {
                     expand: true,
@@ -284,6 +331,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'dustjs',
+        'imageEmbed',
+        'replace_json_glob',
         'chromeManifest:dist',
         'useminPrepare',
         'concurrent:dist',
