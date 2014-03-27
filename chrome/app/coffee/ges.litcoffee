@@ -77,14 +77,13 @@ Initialization consists of setting up the GES window...
 ... and adding a link to access it.
 
             link = """
-                   <li class="hud-item">
-                       <span class="pipe">|</span>
-                   </li>
-                   <li class="hud-item">
-                       <a href="#" id="ges-link">GES</a>
+                   <li class="hud-item-new">
+                       <a href="#" id="ges-link" class="hud-item-value-new">
+                           <span>GES</span>
+                       </a>
                    </li>
                    """
-            $('.hud-account .hud-item-list').append link
+            $('.hud-stats .hud-item-list-new').append link
             $('#ges-link').on 'click', (e)->
                 e.preventDefault()
                 $('#ges-box').dialog
