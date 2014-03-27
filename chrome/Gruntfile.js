@@ -298,7 +298,6 @@ module.exports = function (grunt) {
         chromeManifest: {
             dist: {
                 options: {
-                    buildnumber: true,
                     background: {
                         target:'scripts/background.js'
                     }
@@ -332,6 +331,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'dustjs',
+        'coffee:dist',
         'imageEmbed',
         'replace_json_glob',
         'chromeManifest:dist',
